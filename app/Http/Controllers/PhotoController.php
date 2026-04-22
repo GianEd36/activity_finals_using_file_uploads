@@ -20,16 +20,13 @@ class PhotoController extends Controller
      */
     public function create()
     {
-        // Fetch photos with pagination (e.g., 12 per page) 
         $photos = Photo::latest()->paginate(12); 
         return view('upload', compact('photos'));
     }
-
     public function destroy($id)
     {
         $photo = Photo::findOrFail($id);
         
-        // Delete the physical file from the public folder [cite: 92, 106]
         $filePath = public_path('images/' . $photo->image);
         if (file_exists($filePath)) {
             unlink($filePath);
