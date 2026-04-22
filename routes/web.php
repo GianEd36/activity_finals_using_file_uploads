@@ -1,10 +1,11 @@
 <?php
 
 use App\Http\Controllers\PhotoController;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return Redirect('/upload');
 });
 
 Route::get('/upload', [PhotoController::class, 'create']);

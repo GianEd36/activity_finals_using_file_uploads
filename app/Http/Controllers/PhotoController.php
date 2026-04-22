@@ -23,19 +23,6 @@ class PhotoController extends Controller
         $photos = Photo::latest()->paginate(12); 
         return view('upload', compact('photos'));
     }
-    public function destroy($id)
-    {
-        $photo = Photo::findOrFail($id);
-        
-        $filePath = public_path('images/' . $photo->image);
-        if (file_exists($filePath)) {
-            unlink($filePath);
-        }
-
-        $photo->delete();
-
-        return back()->with('success', 'Photo deleted successfully!');
-    }
     public function storeSingle(Request $request)
     {
         $request->validate([
@@ -48,8 +35,9 @@ class PhotoController extends Controller
 
         Photo::create(['image' => $name]);
 
-        return back()->with('success', 'Single image uploaded successfully!');
+        return back()->with('success', 'A new memory has been added to the clouds! ✨');
     }
+
     public function storeMultiple(Request $request)
     {
         $request->validate([
@@ -63,7 +51,22 @@ class PhotoController extends Controller
             Photo::create(['image' => $name]);
         }
 
-        return back()->with('success', 'Multiple images uploaded successfully!');
+        return back()->with('success', 'Your collection of memories is now floating in the gallery! ☁️');
+    }
+
+    public function destroy($id)
+    {
+        $photo = Photo::findOrFail($id);
+        
+        $filePath = public_path('images/' . $photo->image);
+        if (file_exists($filePath)) {
+            unlink($filePath);
+        }
+
+        $photo->id;
+        $photo->delete();
+
+        return back()->with('success', 'The photo has been safely removed. 🎀');
     }
 
 
